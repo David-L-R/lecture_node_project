@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import PokemonService from '../services/pokemon'
-import { PokemonPreview } from '../types/pokemon'
 
+import { Pokemon, PokemonPreview } from '../types/pokemon'
 /* THIS CONTROLLER WILL PARSE THE REQUEST AND CALL THE RIGHT SERVICE ACTION*/
 export class PokemonCtrl {
 	async getAll(req: Request, res: Response) {
@@ -18,7 +18,20 @@ export class PokemonCtrl {
 
 	// 	// return await getMany(limit: number, offset: number)
 	// }
-	// getOneById(id: number) {}
+	async getOneById(req: Request, res: Response) {
+		try {
+			const { id } = req.params
+			const pokemon: void | Pokemon | undefined = await PokemonService.getOneById(parseInt(id))
+
+			if (!pokemon) {
+				return res.status(400).send('No pokemon was found')
+			}
+			res.status(200).send(pokemon)
+		} catch (err) {
+			console.error(err)
+			res.status(500).send(err)
+		}
+	}
 	// getOneByName(name: string) {}
 }
 
