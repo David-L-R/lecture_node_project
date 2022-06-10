@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express'
-import ExampleCtrl from '../controllers/example'
+import PokemonCtrl from '../controllers/pokemon'
 
 const router = Router()
 
-router.get('/', ExampleCtrl.getAll)
+router.get('/', PokemonCtrl.getAll)
 
 export default router

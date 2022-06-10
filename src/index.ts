@@ -1,14 +1,15 @@
 import express, { Application } from 'express'
 
-import exampleRouter from './routes/example'
+import pokemonRouter from './routes/pokemon'
 
 const app: Application = express()
+app.use(express.json())
 
 /* ROUTES */
-app.use('/example', exampleRouter)
+app.use('/api/pokemon', pokemonRouter)
 
 /* LISTENING */
 const PORT: Number = 4000
-app.listen(PORT, (): void => console.log(`running on port ${PORT}`))
+app.listen(PORT, (): void => console.info(`running on port ${PORT}`))
 
 export default app
