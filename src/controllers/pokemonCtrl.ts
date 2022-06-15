@@ -11,6 +11,59 @@ export class PokemonCtrl {
 			res.status(500).send(err)
 		}
 	}
+
+	async getSome(req: Request, res: Response) {
+		const { limit, offset } = req.query
+
+		const offsetNum = Number(offset)
+		const limitNum = Number(limit)
+
+		try {
+			const { results } = await PokemonService.getSome({
+				limit: isNaN(limitNum) ? 0 : limitNum,
+				offset: isNaN(offsetNum) ? 0 : offsetNum,
+			})
+			res.status(200).send(results)
+		} catch (err) {
+			return res.send(err)
+		}
+	}
+
+	async getOneById(req: Request, res: Response) {
+		const { id } = req.params
+
+		try {
+			const pokemon = await PokemonService.getOneById({
+				id: parseInt(id),
+			})
+			res.status(200).send(pokemon)
+		} catch (err) {
+			if (err instanceof Error) {
+				if (err.message === 'Not Found') {
+					return res.status(400).send(err.message)
+				}
+			}
+			res.send(err)
+		}
+	}
+
+	async getOneByName(req: Request, res: Response) {
+		const { name } = req.params
+
+		try {
+			const pokemon = await PokemonService.getOneByName({
+				name,
+			})
+			res.status(200).send(pokemon)
+		} catch (err) {
+			if (err instanceof Error) {
+				if (err.message === 'Not Found') {
+					return res.status(400).send(err.message)
+				}
+			}
+			res.send(err)
+		}
+	}
 }
 
 export default new PokemonCtrl()
