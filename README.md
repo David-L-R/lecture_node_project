@@ -1,3 +1,5 @@
+https://thoughtcatalog.com/wp-content/uploads/2018/06/leftoverpuns-pokemon.jpg
+
 # Challenge
 
 The challenge is to write unit tests to all functions in the service (`src/services/pokemonService.ts`).
