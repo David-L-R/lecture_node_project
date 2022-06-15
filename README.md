@@ -1,4 +1,4 @@
-[pokemon](https://thoughtcatalog.com/wp-content/uploads/2018/06/leftoverpuns-pokemon.jpg)
+<img src="https://thoughtcatalog.com/wp-content/uploads/2018/06/leftoverpuns-pokemon.jpg" />
 
 # Challenge
 
