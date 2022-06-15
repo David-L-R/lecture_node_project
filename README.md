@@ -1,16 +1,31 @@
 # Challenge
 
-The goal of this challenge is to build the service functions that will fetch pokemons as stated in the requirements.
+The challenge is to write unit tests to all functions in the service (`src/services/pokemonService.ts`).
 
-Then, we need to write all the unit tests to make sure those functions work properly (if we send X, they will return Y).
+The tests should cover the success path, but also the errors that might occur (you'll see possible errors in the service file).
 
-Don't forget to use Typescript.
+If the architecture of this server does not make much sense, I recommend watching this video:
 
-## Requirements
+[server architecture](https://vimeo.com/719870876/7d0bd79580)
 
-You should build the API
+## Setup
 
-- Fetch all Pokemons
-- Fetch several Pokemons, and not necessarily starting from index 0
-- Fetch 1 Pokemon by name
-- Fetch 1 Pokemon by id
+1. clone the repository
+
+2. `git switch challenge` (to switch to the branch challenge)
+
+3. `git pull origin origin challenge`
+
+4. `yarn` or `npm install`
+
+5. `yarn start` or `npm start` to run the server
+
+6. `yarn test` or `npm run test` to run the tests
+
+## Testing
+
+1. Go to `__tests__` folder.
+
+2. Go to `pokemonService.test.ts` (I already created it for you 😃)
+
+3. Write your tests! NOTICE: I did not mention all the test cases, because I want you to do it.
