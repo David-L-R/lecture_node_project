@@ -9,6 +9,3 @@ export class PokemonService {
 	}
 }
 export default new PokemonService()
-
-// DRY
-// DONT REPEAT YOURSELF
