@@ -1,6 +1,7 @@
 import axios from 'axios'
 import pokemonService from '../src/services/pokemonService'
-import pokemons from './mockdata.json'
+import pokemons from './mockAllPokemon.json'
+import pokemon from './mockOnePokemon.json'
 
 // mocking the axios service
 // cause we don't want
@@ -96,4 +97,23 @@ describe('Pokemon service', () => {
 			`No pokemons were found with limit ${LIMIT} and offset ${OFFSET}`,
 		)
 	})
+
+	test('get pokemon by id works', async () => {
+		mockedAxios.get.mockResolvedValue({
+			data: pokemon,
+		})
+
+		const response = await pokemonService.getOneById({ id: 1 })
+
+		expect(response.hasOwnProperty('abilities')).toBeTruthy()
+		expect(response.moves.length).toBeGreaterThan(0)
+		expect(Object.keys(response.sprites)).toHaveLength(10)
+		expect(response.hasOwnProperty('abilities')).toBeTruthy()
+		expect(mockedAxios.get).toBeCalledTimes(1)
+	})
+	test('', async () => {})
+	test('', async () => {})
+	test('', async () => {})
+	test('', async () => {})
+	test('', async () => {})
 })

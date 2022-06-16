@@ -25,6 +25,8 @@ export class PokemonService {
 	async getOneById({ id }: { id: number }) {
 		try {
 			const { data } = await axios.get(`${POKEMON_API_BASE_URL}pokemon/${id}`)
+
+			console.log(data)
 			return data
 		} catch (err) {
 			if (err instanceof AxiosError) throw new Error(err?.response?.data)
