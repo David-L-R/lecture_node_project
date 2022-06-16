@@ -23,8 +23,14 @@ export class PokemonCtrl {
 				limit: isNaN(limitNum) ? 0 : limitNum,
 				offset: isNaN(offsetNum) ? 0 : offsetNum,
 			})
+
 			res.status(200).send(results)
 		} catch (err) {
+			if (err instanceof Error) {
+				if (err.message.includes(`No pokemons were found with limit`)) {
+					return res.status(400).send(err.message)
+				}
+			}
 			return res.send(err)
 		}
 	}

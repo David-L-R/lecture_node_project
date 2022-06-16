@@ -15,13 +15,11 @@ export class PokemonService {
 
 		const { data } = await axios.get(`${POKEMON_API_BASE_URL}pokemon?limit=${limit}&offset=${offset}`)
 
-		const { results } = data
-
-		if (results.length === 0) {
+		if (data.results.length === 0) {
 			throw new Error(`No pokemons were found with limit ${limit} and offset ${offset}`)
 		}
 
-		return results
+		return data
 	}
 
 	async getOneById({ id }: { id: number }) {
