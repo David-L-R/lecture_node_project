@@ -48,7 +48,6 @@ export class PokemonCtrl {
 			res.status(200).send(pokemon)
 		} catch (err) {
 			if (err instanceof Error) {
-				console.log(err)
 				if (err.message === 'Not Found') {
 					return res.status(400).send(err.message)
 				}

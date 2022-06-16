@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import pokemonService from '../src/services/pokemonService'
 import pokemons from './mockAllPokemon.json'
 import pokemon from './mockOnePokemon.json'
@@ -85,7 +85,7 @@ describe('Pokemon service', () => {
 	})
 
 	test('Get error when a negative limit exceeds number of pokemons', async () => {
-		mockedAxios.get.mockResolvedValue({
+		mockedAxios.get.mockResolvedValueOnce({
 			data: {
 				results: [],
 			},
@@ -99,19 +99,46 @@ describe('Pokemon service', () => {
 	})
 
 	test('get pokemon by id works', async () => {
-		mockedAxios.get.mockResolvedValue({
+		mockedAxios.get.mockResolvedValueOnce({
 			data: pokemon,
 		})
-
 		const response = await pokemonService.getOneById({ id: 1 })
-
 		expect(response.hasOwnProperty('abilities')).toBeTruthy()
 		expect(response.moves.length).toBeGreaterThan(0)
 		expect(Object.keys(response.sprites)).toHaveLength(10)
 		expect(response.hasOwnProperty('abilities')).toBeTruthy()
 		expect(mockedAxios.get).toBeCalledTimes(1)
 	})
-	test('', async () => {})
+	test('get pokemon by id throw error when id does not exist', async () => {
+		// mockedAxios.get.mockRejectedValueOnce({
+		// 	response: {
+		// 		data: new Error('Not Found'),
+		// 	},
+		// })
+
+		mockedAxios.get.mockRejectedValueOnce(new AxiosError('Not Found'))
+
+		try {
+			const response = await pokemonService.getOneById({ id: 8989583 })
+		} catch (err) {
+			console.log(typeof err)
+			console.log(err)
+
+			if (err instanceof Error) {
+				console.log('ERRROR')
+				console.log('message', err.message)
+			}
+			if (err instanceof AxiosError) {
+				// throw new Error(err?.response?.data)
+				console.log(err?.response?.data)
+			}
+			// expect(err).toEqual({
+			// 	response: {
+			// 		data: new Error('Not Found'),
+			// 	},
+			// })
+		}
+	})
 	test('', async () => {})
 	test('', async () => {})
 	test('', async () => {})
