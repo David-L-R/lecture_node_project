@@ -1,3 +1,5 @@
+<img src="https://thoughtcatalog.com/wp-content/uploads/2018/06/leftoverpuns-pokemon.jpg" />
+
 # Challenge
 
 The challenge is to write unit tests to all functions in the service (`src/services/pokemonService.ts`).
@@ -29,3 +31,5 @@ If the architecture of this server does not make much sense, I recommend watchin
 2. Go to `pokemonService.test.ts` (I already created it for you 😃)
 
 3. Write your tests! NOTICE: I did not mention all the test cases, because I want you to do it.
+
+- The tests should cover all functionality in the `src/services/pokemonService.ts` file!
