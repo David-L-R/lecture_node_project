@@ -1,6 +1,6 @@
 import axios from 'axios'
 import PokemonService from '../src/services/pokemonService'
-import pokemons from './mockdata.json'
+import pokemons from './mockPokemons.json'
 
 // mocking the axios service
 // cause we don't want
