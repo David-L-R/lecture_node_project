@@ -27,7 +27,10 @@ export class PokemonCtrl {
 			res.status(200).send(results)
 		} catch (err) {
 			if (err instanceof Error) {
-				if (err.message.includes(`No pokemons were found with limit`)) {
+				if (
+					err.message.includes(`No pokemons were found with limit`) ||
+					err.message === 'Offset has to be a positive number'
+				) {
 					return res.status(400).send(err.message)
 				}
 			}
@@ -45,6 +48,7 @@ export class PokemonCtrl {
 			res.status(200).send(pokemon)
 		} catch (err) {
 			if (err instanceof Error) {
+				console.log(err)
 				if (err.message === 'Not Found') {
 					return res.status(400).send(err.message)
 				}
