@@ -51,7 +51,13 @@ export class PokemonService {
 
 			return data
 		} catch (err) {
-			if (err instanceof AxiosError) throw new Error(err?.response?.data)
+			if (err instanceof AxiosError) {
+				throw new Error(err?.response?.data)
+			}
+			if (err instanceof Error) {
+				throw new Error(err.message)
+			}
+			throw err
 		}
 	}
 }
