@@ -7,6 +7,8 @@ import pokemons from './mockdata.json'
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
+const TOTAL_AMOUNT_POKEMONS = 50
+
 afterEach(() => {
 	mockedAxios.get.mockClear()
 	mockedAxios.post.mockClear()
@@ -26,7 +28,7 @@ describe('Pokemon service', () => {
 
 		const { results } = response
 
-		expect(results).toHaveLength(50)
+		expect(results).toHaveLength(TOTAL_AMOUNT_POKEMONS)
 		expect(mockedAxios.get).toBeCalledTimes(1)
 	})
 
@@ -43,16 +45,55 @@ describe('Pokemon service', () => {
 		expect(mockedAxios.get).toBeCalledTimes(1)
 	})
 
-	test('Get error when offest exceeds number of pokemons', async () => {})
+	test('Get error when offest exceeds number of pokemons', async () => {
+		mockedAxios.get.mockResolvedValue({
+			data: {
+				results: [],
+			},
+		})
 
-	test('Get some pokemons with negative limit', async () => {
-		// negative limit will calculate all pokemons minus the absolute value of the limit
+		const LIMIT = 0
+		const OFFSET = 50000
+		expect(pokemonService.getSome({ limit: LIMIT, offset: OFFSET })).rejects.toThrowError(
+			`No pokemons were found with limit ${LIMIT} and offset ${OFFSET}`,
+		)
 	})
 
 	test('Get an error when fetching some pokemons with a negative offset', async () => {
-		// here we can check
+		const LIMIT = 0
+		const OFFSET = -200
+
+		expect(pokemonService.getSome({ limit: LIMIT, offset: OFFSET })).rejects.toThrowError()
 	})
 
-	// add more test here!
-	// don't forget to check for each service function the success path and possible errors!
+	test('Get some pokemons with negative limit', async () => {
+		const NEGATIVE_LIMIT = -20
+
+		mockedAxios.get.mockResolvedValue({
+			data: {
+				results: pokemons.slice(0, TOTAL_AMOUNT_POKEMONS + NEGATIVE_LIMIT),
+			},
+		})
+
+		const response = await pokemonService.getSome({ limit: NEGATIVE_LIMIT, offset: 0 })
+
+		const { results } = response
+
+		expect(results).toHaveLength(30)
+		expect(mockedAxios.get).toBeCalledTimes(1)
+	})
+
+	test('Get error when a negative limit exceeds number of pokemons', async () => {
+		mockedAxios.get.mockResolvedValue({
+			data: {
+				results: [],
+			},
+		})
+
+		const LIMIT = -50000
+		const OFFSET = 0
+		expect(pokemonService.getSome({ limit: LIMIT, offset: OFFSET })).rejects.toThrowError(
+			`No pokemons were found with limit ${LIMIT} and offset ${OFFSET}`,
+		)
+	})
 })
