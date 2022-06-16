@@ -1,32 +1,29 @@
 import axios from 'axios'
-import PokemonService from '../src/services/pokemon'
+import PokemonService from '../src/services/pokemonService'
 import pokemons from './mockdata.json'
 
+// mocking the axios service
+// cause we don't want
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
 describe('Pokemon service', () => {
 	test('Get all pokemons', async () => {
-		mockedAxios.get.mockResolvedValue({
-			data: {
-				results: pokemons,
-			},
-		} as any)
-
-		const response = await PokemonService.getAll()
-
-		expect(response ? response.length : [].length).not.toBe(0)
-		expect(mockedAxios.get).toBeCalled()
+		// here we can check
 	})
 
-	// test('searching pokemon with existing id should return pokemon', async () => {})
-
-	test('searching pokemon with invalid id should return undefined', async () => {
-		mockedAxios.get.mockResolvedValue({ data: 'Not Found' })
-
-		const data = await PokemonService.getOneById(0)
-
-		expect(mockedAxios.get).toBeCalled()
-		expect(data).toBe(undefined)
+	test('Get some pokemons with valid limit and offset', async () => {
+		// here we can check
 	})
+
+	test('Get some pokemons with valid limit and offset', async () => {
+		// here we can check
+	})
+
+	test('Get an error when fetching some pokemons with a negative offset', async () => {
+		// here we can check
+	})
+
+	// add more test here!
+	// don't forget to check for each service function the success path and possible errors!
 })
