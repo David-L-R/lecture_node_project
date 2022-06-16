@@ -110,37 +110,17 @@ describe('Pokemon service', () => {
 		expect(mockedAxios.get).toBeCalledTimes(1)
 	})
 	test('get pokemon by id throw error when id does not exist', async () => {
-		// mockedAxios.get.mockRejectedValueOnce({
-		// 	response: {
-		// 		data: new Error('Not Found'),
-		// 	},
-		// })
-
-		mockedAxios.get.mockRejectedValueOnce(new AxiosError('Not Found'))
+		mockedAxios.get.mockRejectedValueOnce(new Error('Not Found'))
 
 		try {
-			const response = await pokemonService.getOneById({ id: 8989583 })
+			await pokemonService.getOneById({ id: 8989583 })
 		} catch (err) {
-			console.log(typeof err)
-			console.log(err)
-
-			if (err instanceof Error) {
-				console.log('ERRROR')
-				console.log('message', err.message)
-			}
 			if (err instanceof AxiosError) {
-				// throw new Error(err?.response?.data)
-				console.log(err?.response?.data)
+				expect(err?.response?.data).toEqual(new Error('Not Found'))
 			}
-			// expect(err).toEqual({
-			// 	response: {
-			// 		data: new Error('Not Found'),
-			// 	},
-			// })
+			if (err instanceof Error) {
+				expect(err?.message).toEqual('Not Found')
+			}
 		}
 	})
-	test('', async () => {})
-	test('', async () => {})
-	test('', async () => {})
-	test('', async () => {})
 })

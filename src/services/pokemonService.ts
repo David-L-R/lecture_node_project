@@ -30,7 +30,10 @@ export class PokemonService {
 			if (err instanceof AxiosError) {
 				throw new Error(err?.response?.data)
 			}
-			// throw err
+			if (err instanceof Error) {
+				throw new Error(err.message)
+			}
+			throw err
 		}
 	}
 
