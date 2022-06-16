@@ -37,16 +37,16 @@ describe('Pokemon service', () => {
 			},
 		})
 
-		const response = await pokemonService.getSome({ limit: 5, offset: 5 })
-
-		const { results } = response
+		const { results } = await pokemonService.getSome({ limit: 5, offset: 5 })
 
 		expect(results).toHaveLength(5)
 		expect(mockedAxios.get).toBeCalledTimes(1)
 	})
 
-	test('Get some pokemons when ', async () => {
-		// here we can check
+	test('Get error when offest exceeds number of pokemons', async () => {})
+
+	test('Get some pokemons with negative limit', async () => {
+		// negative limit will calculate all pokemons minus the absolute value of the limit
 	})
 
 	test('Get an error when fetching some pokemons with a negative offset', async () => {
