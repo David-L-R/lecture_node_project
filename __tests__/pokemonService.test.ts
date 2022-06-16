@@ -1,5 +1,5 @@
 import axios from 'axios'
-import PokemonService from '../src/services/pokemonService'
+import pokemonService from '../src/services/pokemonService'
 import pokemons from './mockdata.json'
 
 // mocking the axios service
@@ -7,16 +7,45 @@ import pokemons from './mockdata.json'
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
+afterEach(() => {
+	mockedAxios.get.mockClear()
+	mockedAxios.post.mockClear()
+	mockedAxios.put.mockClear()
+	mockedAxios.delete.mockClear()
+})
+
 describe('Pokemon service', () => {
 	test('Get all pokemons', async () => {
-		// here we can check
+		mockedAxios.get.mockResolvedValue({
+			data: {
+				results: pokemons,
+			},
+		})
+
+		const response = await pokemonService.getAll()
+
+		const { results } = response
+
+		expect(results).toHaveLength(50)
+		expect(mockedAxios.get).toBeCalledTimes(1)
 	})
 
 	test('Get some pokemons with valid limit and offset', async () => {
-		// here we can check
+		mockedAxios.get.mockResolvedValue({
+			data: {
+				results: pokemons.slice(5, 10),
+			},
+		})
+
+		const response = await pokemonService.getSome({ limit: 5, offset: 5 })
+
+		const { results } = response
+
+		expect(results).toHaveLength(5)
+		expect(mockedAxios.get).toBeCalledTimes(1)
 	})
 
-	test('Get some pokemons with valid limit and offset', async () => {
+	test('Get some pokemons when ', async () => {
 		// here we can check
 	})
 
