@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <img src="https://thoughtcatalog.com/wp-content/uploads/2018/06/leftoverpuns-pokemon.jpg" />
 
 # Challenge
@@ -35,4 +33,3 @@ If the architecture of this server does not make much sense, I recommend watchin
 3. Write your tests! NOTICE: I did not mention all the test cases, because I want you to do it.
 
 - The tests should cover all functionality in the `src/services/pokemonService.ts` file!
->>>>>>> be9edb632af34d97e3073f3da919a9ec425919c8
