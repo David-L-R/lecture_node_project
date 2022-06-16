@@ -48,8 +48,8 @@ export class PokemonCtrl {
 			res.status(200).send(pokemon)
 		} catch (err) {
 			if (err instanceof Error) {
-				if (err.message === 'Not Found') {
-					return res.status(400).send(err.message)
+				if (err.message === 'Request failed with status code 404') {
+					return res.status(404).send(err.message)
 				}
 			}
 			res.send(err)
@@ -66,7 +66,7 @@ export class PokemonCtrl {
 			res.status(200).send(pokemon)
 		} catch (err) {
 			if (err instanceof Error) {
-				if (err.message === 'Not Found') {
+				if (err.message === 'Request failed with status code 404') {
 					return res.status(400).send(err.message)
 				}
 			}

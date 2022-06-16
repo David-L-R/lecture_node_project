@@ -111,16 +111,6 @@ describe('Pokemon service', () => {
 	})
 	test('get pokemon by id throw error when id does not exist', async () => {
 		mockedAxios.get.mockRejectedValueOnce(new Error('Not Found'))
-
-		try {
-			await pokemonService.getOneById({ id: 8989583 })
-		} catch (err) {
-			if (err instanceof AxiosError) {
-				expect(err?.response?.data).toEqual(new Error('Not Found'))
-			}
-			if (err instanceof Error) {
-				expect(err?.message).toEqual('Not Found')
-			}
-		}
+		await expect(pokemonService.getOneById({ id: 8989583 })).rejects.toThrow()
 	})
 })
